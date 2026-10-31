@@ -1,0 +1,20 @@
+name: Contrôle de la base
+
+on:
+  push:
+    paths: ["data/**", "scripts/**"]
+  pull_request:
+    paths: ["data/**", "scripts/**"]
+
+jobs:
+  valider:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Contrôle des formats et de la cohérence
+        run: python scripts/valider.py
+      - name: Indicateurs
+        run: python scripts/indicateurs.py
